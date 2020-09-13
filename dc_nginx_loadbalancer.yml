@@ -1,0 +1,6 @@
+version: "3"
+services:
+    web:
+        image: nginx_load_balance
+        ports:
+            - "80:80"

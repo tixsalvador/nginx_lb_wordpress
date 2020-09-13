@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+    db1:
+        image: mysql:latest
+        command: --default-authentication-plugin=mysql_native_password
+        environment:
+            - MYSQL_ROOT_PASSWORD=zaq1xsw2
+            - MYSQL_DATABASE=wordpress
+            - MYSQL_USER=wordpress
+            - MYSQL_PASSWORD=zaqxswcde
+        networks:
+            - mysql_private
+
+    wordpress:
+        image: wordpress
+        ports:
+            - "8081:80"
+        environment:
+            - WORDPRESS_DB_HOST=db1
+            - WORDPRESS_DB_USER=wordpress
+            - WORDPRESS_DB_PASSWORD=zaqxswcde
+            - WORDPRESS_DB_NAME=wordpress
+        networks:
+            - bridge
+            - mysql_private
+        depends_on:
+            - database
+
+networks:
+    mysql_private:
+        driver: overlay
+    bridge:
+        external:
+            name: bridge
